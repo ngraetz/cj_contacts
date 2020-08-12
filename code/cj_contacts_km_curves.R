@@ -77,7 +77,6 @@ km_curve_plot <- function(i, d=cj_surv) {
     color_labels <- c('Hispanic','NH Black','NH White')
   }
   ## Make plots of curves
-  gg_unweighted <- 
   km_plot <- function(km_fit) {
     ggsurvplot(km_fit,
                data = cj_surv_sub,
