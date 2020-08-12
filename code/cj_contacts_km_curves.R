@@ -5,7 +5,7 @@ library(survminer)
 library(survival)
 repo <- 'C:/Users/ncgra/Dropbox/Penn/repos/cj_contacts'
 ## Load data.
-cj <- read_dta("C:/Users/ncgra/Downloads/CJ_tas_cleaned_v2.dta")
+cj <- read_dta(paste0(repo,"/code/CJ_tas_cleaned_v2.dta"))
 cj <- as.data.table(cj)
 cj[ta_dem_race_eth==1, race_eth := 'NH White']
 cj[ta_dem_race_eth==2, race_eth := 'NH Black']
@@ -103,6 +103,8 @@ km_curve_plot <- function(i, d=cj_surv) {
   if(v=='prob') var <- 'Probation'
   if(v=='incar') var <- 'Incarceration'
   gg$plot <- gg$plot + ggtitle(paste0(var,': ',target_sex,', ',target_edu,', ',target_weight))
+  ## Change to failure rate instead of survival rate.
+  # gg$plot$data$surv <- 1 - gg$plot$data$surv
   ## Save.
   png(paste0(repo,'/',todays_date,'/',target_weight,'_',target_sex,'_',target_edu,'_',var,'.png'),height=9,width=11, units='in',res=800)
   print(gg)
